@@ -4,6 +4,16 @@ let restaurants,
 var newMap
 var markers = []
 
+
+if ('serviceWorker' in navigator) {
+  /*window.addEventListener('load', ()=> {*/
+    navigator.serviceWorker
+    .register('/sw.js')
+    .catch(err => {
+      console.error(err);//Service Worker Error: ${err}'));//
+  });
+}
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -71,6 +81,35 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 /**
  * Initialize leaflet map, called from HTML.
  */
+ initMap = () => {
+  if (navigator.onLine) {
+    try {
+      self.newMap = L.map('map', {
+        center: [40.722216, -73.987501],
+        zoom: 12,
+        scrollWheelZoom: false
+      });
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+        mapboxToken: SECRET.mapbox_key,
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox.streets'
+      }).addTo(newMap);
+    } catch(error) {
+      console.log("Map couldn't be initialized", error);
+      //set map offline if error occurs while initializing the map
+      DBHelper .mapOffline();
+    }
+  } else {
+  //set map as offline when using app offline
+  DBHelper .mapOffline();
+  }
+
+  updateRestaurants();
+}
+/*
 initMap = () => {
   self.newMap = L.map('map', {
         center: [40.722216, -73.987501],
@@ -157,30 +196,43 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.classList.add('restaurant-card');
+  const cardBorder = document.createElement('div');
+  cardBorder.classList.add('card-border');
+  li.appendChild(cardBorder);
 
   const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  // add alternate text to images
+  image.className = 'restaurant-image';
+// add alternate text to images
   image.alt = 'image of the ' + restaurant.name + ' restaurant';
+// add responsive sizing to images
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  image.srcset = DBHelper.imageSrcsetForRestaurant(restaurant);
+  image.sizes = DBHelper.imageSizesForRestaurant(restaurant);
+  cardBorder.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
-  li.append(name);
+  name.className = 'restaurant-name';
+  cardBorder.append(name);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
-  li.append(neighborhood);
+  neighborhood.className = 'neighborhood';
+  cardBorder.append(neighborhood);
 
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
-  li.append(address);
+  address.className = 'address';
+  cardBorder.append(address);
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute('aria-label', `View details about ${restaurant.name}`);
+  more.className = 'details-button';
+  more.tabindex = "3";
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  cardBorder.append(more)
 
   return li
 }
@@ -198,8 +250,8 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     }
     self.markers.push(marker);
   });
-
 }
+
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
