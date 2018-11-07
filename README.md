@@ -1,32 +1,61 @@
-# Mobile Web Specialist Certification Course
+# Restaurant Review App
+## Udacity Frontend Developer Course
+### Project 5
 ---
-#### _Three Stage Course Material Project - Restaurant Reviews_
 
-## Project Overview: Stage 1
+## Project Overview:
+Convert a static webpage to a mobile-ready web application with the following requirements:
+  Add accessibility features.
+  Add responsive design elements.
+  Add a service worker.
 
-For the **Restaurant Reviews** projects, you will incrementally convert a static webpage to a mobile-ready web application. In **Stage One**, you will take a static design that lacks accessibility and convert the design to be responsive on different sized displays and accessible for screen reader use. You will also add a service worker to begin the process of creating a seamless offline experience for your users.
+## Instructions
+Download or clone the repository and use the terminal to navigate to the project folder.
 
-### Specification
+Run the project folder through a simple local HTTP server.
+To run the server on Python 3.x, the command is:
+-m http.server 8000
 
-You have been provided the code for a restaurant reviews website. The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality. 
 
-### What do I do from here?
+To run the server on npm, the command is:
+npm install -g serve
+Navigate into the build directory and run the following command:
+serve -p 8080
 
-1. In this folder, start up a simple HTTP server to serve up the site files on your local computer. Python has some simple tools to do this, and you don't even need to know Python. For most people, it's already installed on your computer. 
 
-In a terminal, check the version of Python you have: `python -V`. If you have Python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` (or some other port, if port 8000 is already in use.) For Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
+Open your browser and navigate to http://localhost:8000 or http://localhost:8080.
 
-2. With your server running, visit the site: `http://localhost:8000`, and look around for a bit to see what the current experience looks like.
-3. Explore the provided code, and start making a plan to implement the required features in three areas: responsive design, accessibility and offline use.
-4. Write code to implement the updates to get this site on its way to being a mobile-ready website.
 
-## Leaflet.js and Mapbox:
+## How to Use the App
+The app will load displaying a map of New York with markers for each restaurant and a list of restaurants
+Restaurant list can be filtered by neighborhood and/or cuisine
+Click on a map marker or restaurant to get details about each restaurant
 
-This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.mapbox.com/). You need to replace `<your MAPBOX API KEY HERE>` with a token from [Mapbox](https://www.mapbox.com/). Mapbox is free to use, and does not require any payment information. 
 
-### Note about ES6
+## Resources and Documentation:
+(https://github.com/AlexandroPerez/mws-walkthrough)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-1-map-api/)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-2-responsiveness/)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-3-accessibility/)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-4-service-workers/)
 
-Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code. As much as possible, try to maintain use of ES6 in any additional JavaScript you write. 
+(https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server)
+(https://webaim.org/techniques/skipnav/)
+(https://webaim.org/techniques/keyboard/tabindex)
+
+(https://leafletjs.com/)
+(https://www.mapbox.com/)
+
+## Acknowledgements:
+In addition to the sources commented in the code, I completed this project with the help of the following tutorials:
+(https://github.com/AlexandroPerez/mws-walkthrough)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-1-map-api/)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-2-responsiveness/)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-3-accessibility/)
+(https://matthewcranford.com/restaurant-reviews-app-walkthrough-part-4-service-workers/)
+
+##Contact
+Connect with me on linkedIn (https://www.linkedin.com/in/christina-tovar-hamernik/) or Twitter (https://twitter.com/CTovarHamernik)
 
 
 
